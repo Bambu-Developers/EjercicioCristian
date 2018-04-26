@@ -10,6 +10,8 @@ import com.example.feliz.sitiosgo.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+//Esta es la actividad principal
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
