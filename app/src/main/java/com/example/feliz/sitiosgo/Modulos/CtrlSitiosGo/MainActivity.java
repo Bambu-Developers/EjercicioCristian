@@ -29,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Método para que se inicie el LoginActivity
-    private void goLoginScreen() {
+    /*private void goLoginScreen() {
         Intent intent = new Intent(this, SGLoginFacebook.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
+    }*/
 
     //Método para cerrar sesión
-    public void logout(View view) {
+    /*public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
         goLoginScreen();
-    }
+    }*/
 }

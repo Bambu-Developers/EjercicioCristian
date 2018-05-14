@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.feliz.sitiosgo.Modulos.CtrlSitiosGo.MainActivity;
+import com.example.feliz.sitiosgo.Modulos.Menu.Ctrls.MenuActivity;
 import com.example.feliz.sitiosgo.Modulos.SGSplash.Ctrls.SGSplash;
 import com.example.feliz.sitiosgo.R;
 import com.facebook.AccessToken;
@@ -151,7 +152,8 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
     }
 
     private void goMainScreen() {
-        Intent logIntent = new Intent(SGLoginFacebook.this, MainActivity.class);
+        //Intent logIntent = new Intent(SGLoginFacebook.this, MainActivity.class);
+        Intent logIntent = new Intent(SGLoginFacebook.this, MenuActivity.class);
         logIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logIntent);
     }

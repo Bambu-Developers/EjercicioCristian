@@ -42,6 +42,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Modulos.Account.Ctrls.SGLoginFacebook" />
+        <activity
+            android:name=".Modulos.Menu.Ctrls.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

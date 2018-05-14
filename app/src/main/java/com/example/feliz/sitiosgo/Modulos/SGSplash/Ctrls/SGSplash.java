@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.example.feliz.sitiosgo.Modulos.Account.Ctrls.SGLoginFacebook;
 import com.example.feliz.sitiosgo.Modulos.CtrlSitiosGo.MainActivity;
+import com.example.feliz.sitiosgo.Modulos.Menu.Ctrls.MenuActivity;
 import com.example.feliz.sitiosgo.R;
 
 import java.security.MessageDigest;
@@ -29,6 +30,7 @@ public class SGSplash extends AppCompatActivity {
             @Override
             public void run(){
                 Intent loginIntent = new Intent(SGSplash.this, SGLoginFacebook.class);
+                //Intent loginIntent = new Intent(SGSplash.this, MenuActivity.class);
                 startActivity(loginIntent);
                 finish();
             }
