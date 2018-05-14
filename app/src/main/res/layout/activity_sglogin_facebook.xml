@@ -11,7 +11,7 @@
     android:background="@drawable/fondo_splash"
     tools:context="com.example.feliz.sitiosgo.Modulos.Account.Ctrls.SGLoginFacebook">
 
-    <!--com.facebook.login.widget.LoginButton
+    <com.facebook.login.widget.LoginButton
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/login_button"
@@ -19,16 +19,17 @@
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"/-->
+        android:layout_marginBottom="30dp"/>
 
-    <include
+    <!--include
         android:layout_marginTop="120dp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         layout="@layout/loginfacebookactivity"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"/-->
 
     <com.google.android.gms.common.SignInButton
+        android:layout_below="@id/login_button"
         android:id="@+id/btn_google"
         android:layout_width="180dp"
         android:layout_height="40dp"
@@ -46,5 +47,16 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="421dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="300dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        app:srcCompat="@drawable/login" />
 
 </RelativeLayout>

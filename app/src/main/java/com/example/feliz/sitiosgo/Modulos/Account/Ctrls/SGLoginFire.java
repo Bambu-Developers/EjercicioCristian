@@ -9,12 +9,5 @@ import com.facebook.appevents.AppEventsLogger;
  * Created by feliz on 24/04/2018.
  */
 
-public class SGLoginFire extends Application {
-    // método auxiliar de activación de la aplicación del SDK debe invocarse una vez cuando se crea la aplicación.
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-    }
+public class SGLoginFire{
 }
