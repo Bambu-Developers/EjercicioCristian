@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.feliz.sitiosgo.Modulos.Account.Ctrls.SGLoginFacebook;
 import com.example.feliz.sitiosgo.Modulos.Menu.Ctrls.FRGContacto.ContactoFragment;
@@ -26,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int INTERVALO = 2000; //2 segundos para salir
+    private long tiempoPrimerClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +71,28 @@ public class MenuActivity extends AppCompatActivity
         goLoginScreen();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    //@Override
+    //public void onBackPressed() {
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }*/
+
+        @Override
+        public void onBackPressed(){
+            if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
+                super.onBackPressed();
+                return;
+            }else {
+                Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
+            }
+            tiempoPrimerClick = System.currentTimeMillis();
+
+            if(getFragmentManager().)
         }
-    }
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,14 +126,16 @@ public class MenuActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         int id = item.getItemId();
 
+        //El addToBackStack es para regresar entre los fragmentos.
+
         if (id == R.id.nav_perfil) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new PerfilFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new PerfilFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_sitios) {
-            fragmentManager.beginTransaction().replace( R.id.contenedor, new SitiosFragment()).commit();
+            fragmentManager.beginTransaction().replace( R.id.contenedor, new SitiosFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_mapa) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new MapaFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new MapaFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_contacto) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactoFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactoFragment()).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
