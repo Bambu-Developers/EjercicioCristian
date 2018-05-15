@@ -9,14 +9,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.feliz.sitiosgo.Modulos.CtrlSitiosGo.MainActivity;
-import com.example.feliz.sitiosgo.Modulos.Menu.Ctrls.MenuActivity;
-import com.example.feliz.sitiosgo.Modulos.SGSplash.Ctrls.SGSplash;
 import com.example.feliz.sitiosgo.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -64,20 +61,23 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sglogin_facebook);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         callbackManager = CallbackManager.Factory.create();
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        //Permiso para obtener el correo electronico del usuario
+
+        //Permisos
         loginButton.setReadPermissions(Arrays.asList("email"));
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                //Respuesta Exitosa
                 //goMainScreen();
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                //Firebase
+                handleFacebookAccesToken(loginResult.getAccessToken());
             }
 
             @Override
@@ -93,17 +93,18 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
             }
         });
 
-        //Metodo que se ejecuta cuando el ususario inicia sesión correctamente
+        //FacebookFirebase
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if(user != null){
                     goMainScreen();
                 }
             }
         };
+        //FacebookFirebase
 
         //Inicio de sesion con google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -131,21 +132,43 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
         });
     }
 
-    private void handleFacebookAccessToken(AccessToken accessToken) {
-        //progressBar.setVisibility(View.VISIBLE);
-        //loginButton.setVisibility(View.GONE);
+    private void handleFacebookAccesToken(AccessToken accessToken) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.GONE);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                progressBar.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.GONE);
+
                 if(!task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), R.string.firebase_error_login, Toast.LENGTH_LONG).show();
                 }
-                //progressBar.setVisibility(View.VISIBLE);
-                //loginButton.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void goMainScreen() {
+        Intent intent = new Intent(SGLoginFacebook.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+
+    //Este metodo tambien es utilizado para el inicio de sesion en Google, aqui llegan los resultados
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SIGN_IN_CODE){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -219,6 +242,3 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
 
 
 }
-
-
-

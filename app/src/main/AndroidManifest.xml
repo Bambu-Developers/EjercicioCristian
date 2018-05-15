@@ -7,7 +7,7 @@
 
 
     <application
-        android:name=".Modulos.Account.Ctrls.SGLoginFire"
+        android:name=".Modulos.Account.Ctrls.EjercicioCristian"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Modulos.CtrlSitiosGo.MainActivity" />
-        <activity android:name=".Modulos.SGSplash.Ctrls.SGSplash">
+        <activity android:name=".Modulos.SGSplash.Ctrls.Ctrls.SGSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

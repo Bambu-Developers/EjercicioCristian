@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">SitiosGo</string>
+
     <!--string name="facebook_app_id">2060275167587184</string>
     <string name="fb_login_protocol_scheme">fb2060275167587184</string-->
-
     <string name="facebook_app_id">203354473612752</string>
     <string name="fb_login_protocol_scheme">fb203354473612752</string>
-
     <string name="cancel_login">Operación inválida</string>
     <string name="error_login">Ocurrió un error al ingresar</string>
     <string name="logout">Cerrar Sesión</string>
