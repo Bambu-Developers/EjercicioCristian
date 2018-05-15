@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.feliz.sitiosgo.Modulos.CtrlSitiosGo.MainActivity;
+import com.example.feliz.sitiosgo.Modulos.Menu.Ctrls.MenuActivity;
 import com.example.feliz.sitiosgo.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -153,23 +154,11 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
     }
 
     private void goMainScreen() {
-        Intent intent = new Intent(SGLoginFacebook.this, MainActivity.class);
+        Intent intent = new Intent(SGLoginFacebook.this, MenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
-    //Este metodo tambien es utilizado para el inicio de sesion en Google, aqui llegan los resultados
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == SIGN_IN_CODE){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
 
     private void handleSignInResult(GoogleSignInResult result) {
         if(result.isSuccess()){
@@ -200,14 +189,6 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
             }
         });
     }
-
-    private void goMainScreen() {
-        //Intent logIntent = new Intent(SGLoginFacebook.this, MainActivity.class);
-        Intent logIntent = new Intent(this, MenuActivity.class);
-        logIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(logIntent);
-    }
-
 
     //Este metodo tambien es utilizado para el inicio de sesion en Google, aqui llegan los resultados
     @Override

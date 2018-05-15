@@ -90,7 +90,7 @@ public class MenuActivity extends AppCompatActivity
             }
             tiempoPrimerClick = System.currentTimeMillis();
 
-            if(getFragmentManager().)
+            //if(getFragmentManager().)
         }
     //}
 
