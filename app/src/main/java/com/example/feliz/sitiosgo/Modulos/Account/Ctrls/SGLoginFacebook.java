@@ -30,7 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
-public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     //Se instancián en el método onCreate()
     private LoginButton loginButton;
@@ -64,8 +63,6 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sglogin_facebook);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -139,7 +136,7 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
         //loginButton.setVisibility(View.GONE);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(SGLoginFacebook.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
@@ -149,26 +146,6 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
                 //loginButton.setVisibility(View.GONE);
             }
         });
-    }
-
-    private void goMainScreen() {
-        //Intent logIntent = new Intent(SGLoginFacebook.this, MainActivity.class);
-        Intent logIntent = new Intent(SGLoginFacebook.this, MenuActivity.class);
-        logIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(logIntent);
-    }
-
-
-    //Este metodo tambien es utilizado para el inicio de sesion en Google, aqui llegan los resultados
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == SIGN_IN_CODE){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -199,6 +176,26 @@ public class SGLoginFacebook extends AppCompatActivity implements GoogleApiClien
                 }
             }
         });
+    }
+
+    private void goMainScreen() {
+        //Intent logIntent = new Intent(SGLoginFacebook.this, MainActivity.class);
+        Intent logIntent = new Intent(this, MenuActivity.class);
+        logIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(logIntent);
+    }
+
+
+    //Este metodo tambien es utilizado para el inicio de sesion en Google, aqui llegan los resultados
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SIGN_IN_CODE){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
     }
 
     @Override
