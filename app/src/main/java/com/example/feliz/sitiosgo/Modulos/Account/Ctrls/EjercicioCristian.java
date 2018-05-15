@@ -7,11 +7,11 @@ import com.facebook.appevents.AppEventsLogger;
 
 public class EjercicioCristian extends Application {
 
-    @Override
+    /*@Override
     public void onCreate() {
         super.onCreate();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-    }
+    }*/
 }

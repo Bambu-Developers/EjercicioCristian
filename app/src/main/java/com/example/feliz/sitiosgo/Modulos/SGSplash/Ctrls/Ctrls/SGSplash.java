@@ -21,6 +21,7 @@ public class SGSplash extends AppCompatActivity {
             @Override
             public void run(){
                 Intent loginIntent = new Intent(SGSplash.this, SGLoginFacebook.class);
+                //Intent loginIntent = new Intent(SGSplash.this, MenuActivity.class);
                 startActivity(loginIntent);
                 finish();
             }
